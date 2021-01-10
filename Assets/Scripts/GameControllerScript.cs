@@ -4,18 +4,18 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class table : MonoBehaviour
+public class GameControllerScript : MonoBehaviour
 {
-    // Start is called before the first frame update
-    
+
+    public GameObject FireExtinguisher;
     public GameObject fire;
     public GameObject SimulateFireCanvas;
     public GameObject ResetCanvas;
+    public GameObject Camera;
 
     public Button SimulateFire;
     public Button Reset;
-
-    public Text Message;
+    public Button DropPin;
 
     public Scene StartingScene;
 
@@ -28,22 +28,30 @@ public class table : MonoBehaviour
 
         SimulateFire.onClick.AddListener(SimulateFireClick);
         Reset.onClick.AddListener(ResetClick);
+        DropPin.onClick.AddListener(DropPinClick);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetButtonDown("1Key"))
+        {
+            Camera.GetComponent<Animator>().Play("Camera Zoom in Fire Extinguisher");
+        }
     }
 
     void SimulateFireClick(){
     	fire.SetActive(true);
     	SimulateFireCanvas.SetActive(false);
     	ResetCanvas.SetActive(true);
-    	Message.text = "Pull the pin of the fire extinguisher, this will break the tamper seal";
     }
 
     void ResetClick(){
     	SceneManager.LoadScene(StartingScene.name);
+    }
+
+    void DropPinClick()
+    {
+        FireExtinguisher.GetComponent<Animator>().Play("Fire Extinguisher clip dropping on the floor");
     }
 }
