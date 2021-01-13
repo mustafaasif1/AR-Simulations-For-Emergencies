@@ -13,6 +13,7 @@ public class GameControllerScript : MonoBehaviour
     public GameObject SimulateFireCanvas;
     public GameObject ResetCanvas;
     public GameObject Camera;
+    public GameObject C02;
 
     public Button SimulateFire;
     public Button Reset;
@@ -92,7 +93,7 @@ public class GameControllerScript : MonoBehaviour
     void ExtinguishFireClick()
     {
         FireExtinguisherRotated.GetComponent<Animator>().Play("Rotated Pipe Handle Pressed");
-        ExtinguishFireButton.gameObject.SetActive(false);
-        
+        C02.SetActive(true);
+        ExtinguishFireButton.gameObject.SetActive(false); 
     }  
 }
