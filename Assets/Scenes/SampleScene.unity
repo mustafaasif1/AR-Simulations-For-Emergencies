@@ -1345,7 +1345,7 @@ ParticleSystem:
     gravityModifier:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.03
+      scalar: 0.15
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -6612,8 +6612,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.49070385, y: 0.31174076}
   m_AnchorMax: {x: 0.49070385, y: 0.48472837}
-  m_AnchoredPosition: {x: -214, y: -74}
-  m_SizeDelta: {x: 160, y: -26}
+  m_AnchoredPosition: {x: -190.4, y: -76.7}
+  m_SizeDelta: {x: 233.98856, y: -31.410488}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1104828797
 MonoBehaviour:
@@ -6637,11 +6637,11 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 8
+    m_FontSize: 10
     m_FontStyle: 1
     m_BestFit: 0
     m_MinSize: 0
-    m_MaxSize: 40
+    m_MaxSize: 150
     m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
@@ -6862,7 +6862,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7610226803827425422, guid: f113340b46551564ea7e8f2107397a33, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.01011165
+      value: 0.012365
       objectReference: {fileID: 0}
     - target: {fileID: 7610226803827425422, guid: f113340b46551564ea7e8f2107397a33, type: 3}
       propertyPath: m_LocalPosition.y

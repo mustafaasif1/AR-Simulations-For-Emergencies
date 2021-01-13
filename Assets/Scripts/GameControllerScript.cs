@@ -47,14 +47,12 @@ public class GameControllerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // if (Input.GetButtonDown("1Key"))
-        // {
-        //     Camera.GetComponent<Animator>().Play("Camera Zoom in Fire Extinguisher");
-        // }
+       
         if (fireOver > 0){
             if ((Time.time - fireOver) > 1){
+            
             Animator anim  = FireExtinguisherRotated.GetComponent<Animator>();
-        
+            anim.speed = 3;
             anim.Play("Rotated Pipe Handle UnPressed");
             
             C02.GetComponent<ParticleSystem>().Stop();
