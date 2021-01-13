@@ -9,9 +9,9 @@ public class CameraScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("1Key"))
-        {
-            Camera.GetComponent<Animator>().Play("Camera Zoom in Fire Extinguisher");
-        }
+        float speed = 3.0f;
+        var move = new Vector3(Input.GetAxis("Vertical"), 0, Input.GetAxis("Horizontal"));
+        transform.position += move * speed * Time.deltaTime;
     }
+
 }
