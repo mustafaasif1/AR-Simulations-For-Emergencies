@@ -21,6 +21,7 @@ public class GameControllerScript : MonoBehaviour
     public Button LiftAndRotateExtinguisherTowardsFire;
     public Button AimPipeTowardsFire;
     public Button ExtinguishFireButton;
+    public float fireOver;
     
 
     public Scene StartingScene;
@@ -28,7 +29,7 @@ public class GameControllerScript : MonoBehaviour
     void Start()
     {
         StartingScene = SceneManager.GetActiveScene();
-
+        fireOver = 0;
         fire.SetActive(false);
         DropPin.gameObject.SetActive(false);
         LiftAndRotateExtinguisherTowardsFire.gameObject.SetActive(false);
@@ -50,6 +51,18 @@ public class GameControllerScript : MonoBehaviour
         // {
         //     Camera.GetComponent<Animator>().Play("Camera Zoom in Fire Extinguisher");
         // }
+        if (fireOver > 0){
+            if ((Time.time - fireOver) > 1){
+            Animator anim  = FireExtinguisherRotated.GetComponent<Animator>();
+        
+            anim.Play("Rotated Pipe Handle UnPressed");
+            
+            C02.GetComponent<ParticleSystem>().Stop();
+            fireOver = 0;
+            }
+            
+        }
+        
     }
 
     void SimulateFireClick(){
@@ -92,8 +105,18 @@ public class GameControllerScript : MonoBehaviour
 
     void ExtinguishFireClick()
     {
-        FireExtinguisherRotated.GetComponent<Animator>().Play("Rotated Pipe Handle Pressed");
-        C02.SetActive(true);
+        Animator anim  = FireExtinguisherRotated.GetComponent<Animator>();
+        anim.speed = 3;
+        anim.Play("Rotated Pipe Handle Pressed");
         ExtinguishFireButton.gameObject.SetActive(false); 
+        C02.SetActive(true);
+        Time.timeScale = 0.4f;
+        fire.GetComponent<ParticleSystem>().Stop();
+        fireOver = Time.time;
+        
+        
+        
+        
+        
     }  
 }
