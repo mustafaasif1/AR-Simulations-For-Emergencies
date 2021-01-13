@@ -22,6 +22,7 @@ public class GameControllerScript : MonoBehaviour
     public Button AimPipeTowardsFire;
     public Button ExtinguishFireButton;
     public float fireOver;
+    public Text txt;
     
 
     public Scene StartingScene;
@@ -55,7 +56,7 @@ public class GameControllerScript : MonoBehaviour
             if ((Time.time - fireOver) > 1){
             Animator anim  = FireExtinguisherRotated.GetComponent<Animator>();
         
-            anim.Play("Rotated Pipe Handle UnPressed");
+            anim.Play("Rotated Pipe Handle Un Pressed");
             
             C02.GetComponent<ParticleSystem>().Stop();
             fireOver = 0;
@@ -70,6 +71,7 @@ public class GameControllerScript : MonoBehaviour
     	SimulateFireCanvas.SetActive(false);
     	ResetCanvas.SetActive(true);
         DropPin.gameObject.SetActive(true);
+        txt.text = "Remove the pin holding the flow of gas from the Fire Extinguisher to start using it by pressing the button on the right";
     }
 
     void ResetClick(){
@@ -81,6 +83,7 @@ public class GameControllerScript : MonoBehaviour
         FireExtinguisher.GetComponent<Animator>().Play("Fire Extinguisher clip dropping on the floor");
         DropPin.gameObject.SetActive(false);
         LiftAndRotateExtinguisherTowardsFire.gameObject.SetActive(true);
+        txt.text = "In order to lift the Fire Extinguisher above to the level of the fire press the button on the right";
     }
 
     void SimulateLifting()
@@ -93,6 +96,7 @@ public class GameControllerScript : MonoBehaviour
         FireExtinguisher.GetComponent<Animator>().Play("Fire Extinguisher Lifting and Facing the Fire");
         LiftAndRotateExtinguisherTowardsFire.gameObject.SetActive(false);
         AimPipeTowardsFire.gameObject.SetActive(true);
+        txt.text = "To point the pipe towards the fire, press the button on the right";
     }
 
     void AimPipeTowardsFireClick()
@@ -101,6 +105,7 @@ public class GameControllerScript : MonoBehaviour
         FireExtinguisherRotated.SetActive(true);
         AimPipeTowardsFire.gameObject.SetActive(false);
         ExtinguishFireButton.gameObject.SetActive(true);
+        txt.text = "Clench the lever of the fire extinguisher in order to extinguish the fire by using the button on the right";
     }
 
     void ExtinguishFireClick()
@@ -113,7 +118,7 @@ public class GameControllerScript : MonoBehaviour
         Time.timeScale = 0.4f;
         fire.GetComponent<ParticleSystem>().Stop();
         fireOver = Time.time;
-        
+        txt.text = "The tutorial ends here, remember safely let go of the lever";
         
         
         

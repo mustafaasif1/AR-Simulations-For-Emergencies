@@ -5899,6 +5899,7 @@ MonoBehaviour:
   AimPipeTowardsFire: {fileID: 1101878529}
   ExtinguishFireButton: {fileID: 1441606346}
   fireOver: 0
+  txt: {fileID: 1104828797}
   StartingScene:
     m_Handle: 0
 --- !u!4 &736930451
@@ -6605,14 +6606,14 @@ RectTransform:
   m_GameObject: {fileID: 1104828795}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.9468362, y: 3.76125, z: 1}
+  m_LocalScale: {x: 1.4834877, y: 1.4253287, z: 1}
   m_Children: []
   m_Father: {fileID: 1094623442}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.49070385, y: 0.31174076}
   m_AnchorMax: {x: 0.49070385, y: 0.48472837}
-  m_AnchoredPosition: {x: -214, y: -74}
+  m_AnchoredPosition: {x: -368, y: -126}
   m_SizeDelta: {x: 160, y: -26}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1104828797
@@ -6639,7 +6640,7 @@ MonoBehaviour:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 8
     m_FontStyle: 1
-    m_BestFit: 0
+    m_BestFit: 1
     m_MinSize: 0
     m_MaxSize: 40
     m_Alignment: 0
