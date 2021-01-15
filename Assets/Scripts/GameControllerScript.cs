@@ -53,13 +53,8 @@ public class GameControllerScript : MonoBehaviour
             if ((Time.time - fireOver) > 1){
             
             Animator anim  = FireExtinguisherRotated.GetComponent<Animator>();
-<<<<<<< HEAD
-        
-            anim.Play("Rotated Pipe Handle Un Pressed");
-=======
             anim.speed = 3;
             anim.Play("Rotated Pipe Handle UnPressed");
->>>>>>> 56a7ace70326f9658976b9ad26c580ef1557e471
             
             C02.GetComponent<ParticleSystem>().Stop();
             fireOver = 0;
