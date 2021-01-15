@@ -8,6 +8,8 @@ public class GameControllerV2 : MonoBehaviour
 {
     public GameObject Canvas;
     public GameObject FireExtinguisher;
+    public GameObject Dustbin;
+    
     // public GameObject Camera;
     
     public Button Reset;
@@ -19,24 +21,21 @@ public class GameControllerV2 : MonoBehaviour
     {
         StartingScene = SceneManager.GetActiveScene();
         Reset.onClick.AddListener(ResetClick);
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        // if (Input.GetMouseButtonDown(0))
-        // {
-        //     Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        //     RaycastHit hit;
-        //     if (Physics.Raycast(ray, out hit))
-        //     {
-        //         Debug.Log(hit.transform.name);
-        //         if (hit.transform.name == "Fire Extinguisher")
-        //         {
-        //             Debug.Log(1);
-        //         }
-        //     }
-        // }  
+          if (Input.GetMouseButtonDown (0)) {
+        
+        RaycastHit hitInfo = new RaycastHit ();
+        if (Physics.Raycast (Camera.main.ScreenPointToRay (Input.mousePosition), out hitInfo)) {
+            Debug.Log ("Object Hit is " + hitInfo.collider.gameObject.name);
+
+            
+            } 
+        }
     }
 
     void ResetClick(){
