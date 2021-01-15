@@ -33,13 +33,19 @@ public class GameControllerV2 : MonoBehaviour
             RaycastHit hitInfo = new RaycastHit ();
             if (Physics.Raycast (Camera.main.ScreenPointToRay (Input.mousePosition), out hitInfo)) 
             {
-                Debug.Log ("Object Hit is " + hitInfo.collider.gameObject.name);
+                Debug.Log ("Object Hit is " + hitInfo.collider.name);
                 if (hitInfo.collider.gameObject.name == "Fire Extinguisher")
                 {
                     FireExtinguisher.transform.parent = Cam.transform;
                     FireExtinguisher.transform.position = new Vector3(Cam.transform.position.x - 1.5f, Cam.transform.position.y - 1.6f ,Cam.transform.position.z - 8.5f);
-                    
                     // FireExtinguisher.GetComponent<Animator>().Play("Bring Extinguisher to Camera");
+                }
+
+                if (hitInfo.collider.name == "polySurface14")
+                {
+                    Debug.Log ("HELOOOO");
+                    FireExtinguisher.GetComponent<Animator>().Play("Remove the Pin");
+                    // Destroy (FireExtinguisher.transform.Find("polySurface14").gameObject);
                 }
 
             } 
