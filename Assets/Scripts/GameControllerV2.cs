@@ -18,6 +18,7 @@ public class GameControllerV2 : MonoBehaviour
 
     bool PinIsRemoved = false;
     bool ExtinguisherInFrontOfCamera = false;
+    // bool isFiring = false;
     
     // Start is called before the first frame update
     void Start()
@@ -58,9 +59,26 @@ public class GameControllerV2 : MonoBehaviour
 
             } 
         }
+
+        // if (isFiring) 
+        // {
+        //     Debug.Log("Fire in the hole");
+        // }
     }
 
     void ResetClick(){
     	SceneManager.LoadScene(StartingScene.name);
     }
+
+    // public void pointerDown()
+    // {
+    //     isFiring = true;
+    // }
+
+    // public void pointerUp()
+    // {
+    //     isFiring = false;
+    // }
+
+
 }
