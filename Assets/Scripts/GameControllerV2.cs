@@ -10,12 +10,14 @@ public class GameControllerV2 : MonoBehaviour
     public GameObject FireExtinguisher;
     public GameObject Dustbin;
     public GameObject Cam;
-    
-    // public GameObject Camera;
-    
+        
     public Button Reset;
+    public Button Fire;
 
     public Scene StartingScene;
+
+    bool PinIsRemoved = false;
+    bool ExtinguisherInFrontOfCamera = false;
     
     // Start is called before the first frame update
     void Start()
@@ -39,13 +41,19 @@ public class GameControllerV2 : MonoBehaviour
                     FireExtinguisher.transform.parent = Cam.transform;
                     FireExtinguisher.transform.position = new Vector3(Cam.transform.position.x - 1.5f, Cam.transform.position.y - 1.6f ,Cam.transform.position.z - 8.5f);
                     // FireExtinguisher.GetComponent<Animator>().Play("Bring Extinguisher to Camera");
+                    ExtinguisherInFrontOfCamera = true;
                 }
 
-                if (hitInfo.collider.name == "polySurface14")
+                if (hitInfo.collider.name == "polySurface14" & ExtinguisherInFrontOfCamera)
                 {
-                    Debug.Log ("HELOOOO");
                     FireExtinguisher.GetComponent<Animator>().Play("Remove the Pin");
-                    // Destroy (FireExtinguisher.transform.Find("polySurface14").gameObject);
+                    PinIsRemoved = true;
+                }
+
+                if (hitInfo.collider.name == "polySurface10" & PinIsRemoved)
+                {
+                    Destroy (FireExtinguisher.transform.Find("polySurface14").gameObject);
+                    FireExtinguisher.GetComponent<Animator>().Play("Point Pipe Towards Fire");
                 }
 
             } 
