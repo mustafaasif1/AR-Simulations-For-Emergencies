@@ -76,6 +76,8 @@ public class GameControllerV2 : MonoBehaviour
                 if ((hitInfo.collider.gameObject.name == "polySurface36" | hitInfo.collider.gameObject.name == "polySurface37") & aimed)
                 {
                     Debug.Log("Fireeee");
+                    FireExtinguisher.transform.FindChild("Smoke").gameObject.SetActive(true);
+
                 }
                 
             }

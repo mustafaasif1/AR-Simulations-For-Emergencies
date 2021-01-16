@@ -192,12 +192,12 @@ GameObject:
   - component: {fileID: 504688209}
   - component: {fileID: 504688208}
   m_Layer: 0
-  m_Name: Particle System
+  m_Name: Smoke
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &504688207
 Transform:
   m_ObjectHideFlags: 0
@@ -205,13 +205,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 504688206}
-  m_LocalRotation: {x: -0.4580696, y: -0.5386764, z: 0.40991607, w: 0.57616735}
-  m_LocalPosition: {x: 2.47, y: -0.5, z: 4.39}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0.42354968, y: -0.65516347, z: 0.44549352, w: 0.43920618}
+  m_LocalPosition: {x: -0.575, y: 0.355, z: 1.674}
+  m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
   m_Children: []
-  m_Father: {fileID: 784575628}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -4.946, y: -90, z: 75.807}
+  m_Father: {fileID: 1572242592}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 12.221, y: -102.844, z: 75.526}
 --- !u!199 &504688208
 ParticleSystemRenderer:
   serializedVersion: 6
@@ -287,7 +287,7 @@ ParticleSystem:
   m_GameObject: {fileID: 504688206}
   serializedVersion: 6
   lengthInSec: 5
-  simulationSpeed: 1
+  simulationSpeed: 4
   stopAction: 0
   cullingMode: 0
   ringBufferMode: 0
@@ -852,7 +852,7 @@ ParticleSystem:
     gravityModifier:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.1
+      scalar: 0.01
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -5122,7 +5122,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f96a5fcd947e2404c836e5fb024a78ed, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f96a5fcd947e2404c836e5fb024a78ed, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -5804,7 +5804,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 576609e5bc9d64de4bc19030553b9a78, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 576609e5bc9d64de4bc19030553b9a78, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -6277,7 +6277,7 @@ Transform:
   m_Children:
   - {fileID: 963194228}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1408445072
 MonoBehaviour:
@@ -6311,6 +6311,11 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -856059019632272089, guid: 576609e5bc9d64de4bc19030553b9a78, type: 3}
+--- !u!4 &1572242592 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 576609e5bc9d64de4bc19030553b9a78, type: 3}
+  m_PrefabInstance: {fileID: 1147183766}
+  m_PrefabAsset: {fileID: 0}
 --- !u!95 &1572242593
 Animator:
   serializedVersion: 3
@@ -6489,7 +6494,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1823398279
 GameObject:
