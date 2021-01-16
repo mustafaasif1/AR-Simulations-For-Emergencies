@@ -12,12 +12,13 @@ public class GameControllerV2 : MonoBehaviour
     public GameObject Cam;
         
     public Button Reset;
-    public Button Fire;
-
+    
     public Scene StartingScene;
 
     bool PinIsRemoved = false;
     bool ExtinguisherInFrontOfCamera = false;
+    bool aimed = false;
+
     // bool isFiring = false;
     
     // Start is called before the first frame update
@@ -25,6 +26,8 @@ public class GameControllerV2 : MonoBehaviour
     {
         StartingScene = SceneManager.GetActiveScene();
         Reset.onClick.AddListener(ResetClick);
+        FireExtinguisher.transform.FindChild("polySurface10").gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
+                    
         
     }
 
@@ -33,6 +36,7 @@ public class GameControllerV2 : MonoBehaviour
     {
         if (Input.GetMouseButtonDown (0)) 
         {
+            Debug.Log("Press");
             RaycastHit hitInfo = new RaycastHit ();
             if (Physics.Raycast (Camera.main.ScreenPointToRay (Input.mousePosition), out hitInfo)) 
             {
@@ -43,21 +47,39 @@ public class GameControllerV2 : MonoBehaviour
                     FireExtinguisher.transform.position = new Vector3(Cam.transform.position.x - 1.5f, Cam.transform.position.y - 1.6f ,Cam.transform.position.z - 8.5f);
                     // FireExtinguisher.GetComponent<Animator>().Play("Bring Extinguisher to Camera");
                     ExtinguisherInFrontOfCamera = true;
+                    FireExtinguisher.layer = LayerMask.NameToLayer("Ignore Raycast");
+                    
                 }
 
                 if (hitInfo.collider.name == "polySurface14" & ExtinguisherInFrontOfCamera)
                 {
                     FireExtinguisher.GetComponent<Animator>().Play("Remove the Pin");
                     PinIsRemoved = true;
+                    FireExtinguisher.transform.FindChild("polySurface10").gameObject.layer = LayerMask.NameToLayer("Default");
+        
                 }
 
-                if (hitInfo.collider.name == "polySurface10" & PinIsRemoved)
+                if (hitInfo.collider.name == "polySurface10" & PinIsRemoved & !aimed)
                 {
                     Destroy (FireExtinguisher.transform.Find("polySurface14").gameObject);
                     FireExtinguisher.GetComponent<Animator>().Play("Point Pipe Towards Fire");
+                    aimed = true;
+                    FireExtinguisher.transform.FindChild("polySurface10").gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
+        
                 }
 
             } 
+        }
+        else if (Input.GetMouseButton(0)){
+            RaycastHit hitInfo = new RaycastHit ();
+            if (Physics.Raycast (Camera.main.ScreenPointToRay (Input.mousePosition), out hitInfo)) {
+                if ((hitInfo.collider.gameObject.name == "polySurface36" | hitInfo.collider.gameObject.name == "polySurface37") & aimed)
+                {
+                    Debug.Log("Fireeee");
+                }
+                
+            }
+            
         }
 
         // if (isFiring) 
