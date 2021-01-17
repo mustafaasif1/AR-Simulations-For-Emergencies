@@ -18,8 +18,6 @@ public class GameControllerV2 : MonoBehaviour
     bool PinIsRemoved = false;
     bool ExtinguisherInFrontOfCamera = false;
     bool aimed = false;
-
-    // bool isFiring = false;
     
     // Start is called before the first frame update
     void Start()
@@ -69,7 +67,7 @@ public class GameControllerV2 : MonoBehaviour
                 }
 
             } 
-        }
+        }        
         else if (Input.GetMouseButton(0)){
             RaycastHit hitInfo = new RaycastHit ();
             if (Physics.Raycast (Camera.main.ScreenPointToRay (Input.mousePosition), out hitInfo)) {
@@ -81,7 +79,14 @@ public class GameControllerV2 : MonoBehaviour
                 }
                 
             }
+        
             
+        }
+
+        else if (Input.GetMouseButtonUp(0)){
+            FireExtinguisher.transform.FindChild("Smoke").gameObject.SetActive(false);
+
+
         }
 
         // if (isFiring) 
