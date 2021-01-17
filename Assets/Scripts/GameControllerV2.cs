@@ -18,6 +18,7 @@ public class GameControllerV2 : MonoBehaviour
     bool PinIsRemoved = false;
     bool ExtinguisherInFrontOfCamera = false;
     bool aimed = false;
+    bool firing = false;
     
     // Start is called before the first frame update
     void Start()
@@ -74,7 +75,9 @@ public class GameControllerV2 : MonoBehaviour
                 if ((hitInfo.collider.gameObject.name == "polySurface36" | hitInfo.collider.gameObject.name == "polySurface37") & aimed)
                 {
                     Debug.Log("Fireeee");
+                    FireExtinguisher.GetComponent<Animator>().Play("Pressing Handle");
                     FireExtinguisher.transform.FindChild("Smoke").gameObject.SetActive(true);
+                    firing = true;
 
                 }
                 
@@ -84,7 +87,11 @@ public class GameControllerV2 : MonoBehaviour
         }
 
         else if (Input.GetMouseButtonUp(0)){
-            FireExtinguisher.transform.FindChild("Smoke").gameObject.SetActive(false);
+            if (firing){
+                FireExtinguisher.GetComponent<Animator>().Play("UnPressing Handle");
+                FireExtinguisher.transform.FindChild("Smoke").gameObject.SetActive(false);
+                firing = false;
+            }
 
 
         }
