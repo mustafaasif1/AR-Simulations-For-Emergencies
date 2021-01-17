@@ -63,8 +63,8 @@ public class GameControllerV2 : MonoBehaviour
                     Destroy (FireExtinguisher.transform.Find("polySurface14").gameObject);
                     FireExtinguisher.GetComponent<Animator>().Play("Point Pipe Towards Fire");
                     aimed = true;
-                    FireExtinguisher.transform.FindChild("polySurface10").gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
-        
+                    Destroy(FireExtinguisher.transform.FindChild("polySurface10").gameObject.GetComponent<Collider>());
+                    Destroy(FireExtinguisher.GetComponent<Collider>());
                 }
 
             } 
