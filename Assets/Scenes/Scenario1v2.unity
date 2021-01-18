@@ -5007,6 +5007,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   collisions: 0
+  frames: 0
+  curr_frames: 0
 --- !u!64 &504688211
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -5138,19 +5140,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2243856091464521503, guid: 89956e675b749204c8e10395ce2b5fb9, type: 3}
       propertyPath: m_LocalScale.x
-      value: 5.5075016
+      value: 5.115147
       objectReference: {fileID: 0}
     - target: {fileID: 2243856091464521503, guid: 89956e675b749204c8e10395ce2b5fb9, type: 3}
       propertyPath: m_LocalScale.z
-      value: 2.9147792
+      value: 2.0567265
       objectReference: {fileID: 0}
     - target: {fileID: 2243856091464521503, guid: 89956e675b749204c8e10395ce2b5fb9, type: 3}
       propertyPath: m_LocalScale.y
-      value: 4.941031
+      value: 4.12749
       objectReference: {fileID: 0}
     - target: {fileID: 2243856091464521503, guid: 89956e675b749204c8e10395ce2b5fb9, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.000000031021
+      value: -0.000000040835
       objectReference: {fileID: 0}
     - target: {fileID: 6318108176469472954, guid: 89956e675b749204c8e10395ce2b5fb9, type: 3}
       propertyPath: m_IsActive
