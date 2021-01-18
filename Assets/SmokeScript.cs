@@ -25,7 +25,7 @@ public class SmokeScript : MonoBehaviour
 
     void OnParticleCollision (GameObject other) {
     
-    if(other.gameObject.name == "trash_can"){
+    if(other.gameObject.name == "FireBase"){
        collisions += 1;
        colliding = true;
     }
