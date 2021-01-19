@@ -15,6 +15,7 @@ public class GameControllerV2 : MonoBehaviour
     
     public Scene StartingScene;
 
+
     bool PinIsRemoved = false;
     bool ExtinguisherInFrontOfCamera = false;
     bool aimed = false;
@@ -25,7 +26,7 @@ public class GameControllerV2 : MonoBehaviour
     {
         StartingScene = SceneManager.GetActiveScene();
         Reset.onClick.AddListener(ResetClick);
-        FireExtinguisher.transform.FindChild("polySurface10").gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
+        FireExtinguisher.transform.Find("polySurface10").gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
                     
         
     }
@@ -54,7 +55,7 @@ public class GameControllerV2 : MonoBehaviour
                 {
                     FireExtinguisher.GetComponent<Animator>().Play("Remove the Pin");
                     PinIsRemoved = true;
-                    FireExtinguisher.transform.FindChild("polySurface10").gameObject.layer = LayerMask.NameToLayer("Default");
+                    FireExtinguisher.transform.Find("polySurface10").gameObject.layer = LayerMask.NameToLayer("Default");
         
                 }
 
@@ -63,7 +64,7 @@ public class GameControllerV2 : MonoBehaviour
                     Destroy (FireExtinguisher.transform.Find("polySurface14").gameObject);
                     FireExtinguisher.GetComponent<Animator>().Play("Point Pipe Towards Fire");
                     aimed = true;
-                    Destroy(FireExtinguisher.transform.FindChild("polySurface10").gameObject.GetComponent<Collider>());
+                    Destroy(FireExtinguisher.transform.Find("polySurface10").gameObject.GetComponent<Collider>());
                     Destroy(FireExtinguisher.GetComponent<Collider>());
                 }
 
@@ -76,7 +77,7 @@ public class GameControllerV2 : MonoBehaviour
                 {
                     Debug.Log("Fireeee");
                     FireExtinguisher.GetComponent<Animator>().Play("Pressing Handle");
-                    FireExtinguisher.transform.FindChild("Smoke").gameObject.SetActive(true);
+                    FireExtinguisher.transform.Find("Smoke").gameObject.SetActive(true);
                     firing = true;
 
                 }
@@ -89,7 +90,7 @@ public class GameControllerV2 : MonoBehaviour
         else if (Input.GetMouseButtonUp(0)){
             if (firing){
                 FireExtinguisher.GetComponent<Animator>().Play("UnPressing Handle");
-                FireExtinguisher.transform.FindChild("Smoke").gameObject.SetActive(false);
+                FireExtinguisher.transform.Find("Smoke").gameObject.SetActive(false);
                 firing = false;
             }
 
