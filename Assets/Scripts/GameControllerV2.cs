@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class GameControllerV2 : MonoBehaviour
 {
@@ -17,6 +18,8 @@ public class GameControllerV2 : MonoBehaviour
     
     public Scene StartingScene;
 
+    public TextMeshProUGUI message;
+
 
     bool PinIsRemoved = false;
     bool ExtinguisherInFrontOfCamera = false;
@@ -26,6 +29,7 @@ public class GameControllerV2 : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        message.text = "Your dust bin has just caught fire and you have to put it out. Find the fire alarm and tap on the handle to activate it.";
         StartingScene = SceneManager.GetActiveScene();
         Reset.onClick.AddListener(ResetClick);
         FireExtinguisher.transform.Find("polySurface10").gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
@@ -46,6 +50,7 @@ public class GameControllerV2 : MonoBehaviour
                 if (hitInfo.collider.name == "Circle.001"){
                     FireAlarmHandle.GetComponent<Animator>().Play("Pull Handle");
                     AlarmSound.SetActive(true);
+                    message.text = "You have now activated the fire alarm. Now find the fire extinguisher and tap on it to hold it.";
                 }
                 if (hitInfo.collider.gameObject.name == "Fire Extinguisher")
                 {
@@ -54,7 +59,7 @@ public class GameControllerV2 : MonoBehaviour
                     // FireExtinguisher.GetComponent<Animator>().Play("Bring Extinguisher to Camera");
                     ExtinguisherInFrontOfCamera = true;
                     FireExtinguisher.layer = LayerMask.NameToLayer("Ignore Raycast");
-                    
+                    message.text = "Now tap on the pin to pull it out. This will break the tamper seal";
                 }
 
                 if (hitInfo.collider.name == "polySurface14" & ExtinguisherInFrontOfCamera)
@@ -62,6 +67,7 @@ public class GameControllerV2 : MonoBehaviour
                     FireExtinguisher.GetComponent<Animator>().Play("Remove the Pin");
                     PinIsRemoved = true;
                     FireExtinguisher.transform.Find("polySurface10").gameObject.layer = LayerMask.NameToLayer("Default");
+                    message.text = "Now tap on the pipe and take aim. Point the nozzle at the base of the fire";
         
                 }
 
@@ -72,6 +78,7 @@ public class GameControllerV2 : MonoBehaviour
                     aimed = true;
                     Destroy(FireExtinguisher.transform.Find("polySurface10").gameObject.GetComponent<Collider>());
                     Destroy(FireExtinguisher.GetComponent<Collider>());
+                    message.text = "Now press and hold the handle to release the extinguishing agent until the fire is put out";
                 }
 
             } 
@@ -85,7 +92,6 @@ public class GameControllerV2 : MonoBehaviour
                     FireExtinguisher.GetComponent<Animator>().Play("Pressing Handle");
                     FireExtinguisher.transform.Find("Smoke").gameObject.SetActive(true);
                     firing = true;
-
                 }
                 
             }
@@ -99,6 +105,7 @@ public class GameControllerV2 : MonoBehaviour
                 FireExtinguisher.transform.Find("Smoke").gameObject.SetActive(false);
                 firing = false;
                 AlarmSound.SetActive(false);
+                message.text = "Congratulations! You have put out the fire";
             }
 
 
