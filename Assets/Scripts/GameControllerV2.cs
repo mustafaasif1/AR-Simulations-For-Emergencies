@@ -10,7 +10,8 @@ public class GameControllerV2 : MonoBehaviour
     public GameObject FireExtinguisher;
     public GameObject Dustbin;
     public GameObject Cam;
-        
+    public GameObject FireAlarmHandle;    
+
     public Button Reset;
     
     public Scene StartingScene;
@@ -41,6 +42,9 @@ public class GameControllerV2 : MonoBehaviour
             if (Physics.Raycast (Camera.main.ScreenPointToRay (Input.mousePosition), out hitInfo)) 
             {
                 Debug.Log ("Object Hit is " + hitInfo.collider.name);
+                if (hitInfo.collider.name == "Circle.001"){
+                    FireAlarmHandle.GetComponent<Animator>().Play("Pull Handle");
+                }
                 if (hitInfo.collider.gameObject.name == "Fire Extinguisher")
                 {
                     FireExtinguisher.transform.parent = Cam.transform;
