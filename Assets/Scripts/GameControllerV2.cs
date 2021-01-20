@@ -98,6 +98,7 @@ public class GameControllerV2 : MonoBehaviour
                 FireExtinguisher.GetComponent<Animator>().Play("UnPressing Handle");
                 FireExtinguisher.transform.Find("Smoke").gameObject.SetActive(false);
                 firing = false;
+                AlarmSound.SetActive(false);
             }
 
 
