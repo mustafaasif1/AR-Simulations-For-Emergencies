@@ -10,7 +10,8 @@ public class GameControllerV2 : MonoBehaviour
     public GameObject FireExtinguisher;
     public GameObject Dustbin;
     public GameObject Cam;
-    public GameObject FireAlarmHandle;    
+    public GameObject FireAlarmHandle;
+    public GameObject AlarmSound;    
 
     public Button Reset;
     
@@ -28,7 +29,7 @@ public class GameControllerV2 : MonoBehaviour
         StartingScene = SceneManager.GetActiveScene();
         Reset.onClick.AddListener(ResetClick);
         FireExtinguisher.transform.Find("polySurface10").gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
-                    
+        AlarmSound.SetActive(false);           
         
     }
 
@@ -44,6 +45,7 @@ public class GameControllerV2 : MonoBehaviour
                 Debug.Log ("Object Hit is " + hitInfo.collider.name);
                 if (hitInfo.collider.name == "Circle.001"){
                     FireAlarmHandle.GetComponent<Animator>().Play("Pull Handle");
+                    AlarmSound.SetActive(true);
                 }
                 if (hitInfo.collider.gameObject.name == "Fire Extinguisher")
                 {
