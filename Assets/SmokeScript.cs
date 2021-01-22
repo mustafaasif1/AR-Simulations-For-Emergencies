@@ -43,6 +43,7 @@ public class SmokeScript : MonoBehaviour
     Debug.Log(collisions+"times hit");
     if(collisions > 120){
         GameObject.Find("PS_Parent").GetComponent<ParticleSystem>().Stop();
+        GameControllerV2.putout = true;
     }
 
     }

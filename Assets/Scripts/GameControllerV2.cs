@@ -30,8 +30,9 @@ public class GameControllerV2 : MonoBehaviour
     bool aimed = false;
     bool firing = false;
     bool fireAlarmActivated = false;
+    public static bool finishgame = false;
     public static bool on;
-    
+    public static bool putout;
     // Start is called before the first frame update
     void Start()
     {
@@ -43,31 +44,50 @@ public class GameControllerV2 : MonoBehaviour
         TimeRemaining = 120;
         TimeTrack = 120;
         TimeCount.text = TimeRemaining.ToString();
-        on = true;         
+        on = true; 
+        putout = false; 
+        PinIsRemoved = false;
+        ExtinguisherInFrontOfCamera = false;
+        aimed = false;
+        fireAlarmActivated = false;
+        finishgame = false;
+
         
     }
 
     // Update is called once per frame
     void FixedUpdate(){
         TimeTrack -= 1/50f;
-        TimeRemaining = (int)TimeTrack;
-        int minutes = TimeRemaining/60;
-        int seconds = TimeRemaining%60;
-        if(on && seconds >= 10) TimeCount.text = minutes.ToString() + ":" + seconds.ToString();
-        else if (on) TimeCount.text = minutes.ToString() + ":0" + seconds.ToString();
-        else TimeCount.text = "0:00";
-        if(TimeRemaining == 0) on = false;
+        if (!finishgame) {
+            TimeRemaining = (int)TimeTrack;
+            int minutes = TimeRemaining/60;
+            int seconds = TimeRemaining%60;
+            if(on && !finishgame && seconds >= 10) TimeCount.text = minutes.ToString() + ":" + seconds.ToString();
+            else if (on && !finishgame) TimeCount.text = minutes.ToString() + ":0" + seconds.ToString();
+            else TimeCount.text = "0:00";
+            if(TimeRemaining == 0) {
+                on = false;
+                AlarmSound.SetActive(false);
+                Destroy(FireExtinguisher.transform.Find("polySurface36").gameObject.GetComponent<Collider>());
+                Destroy(FireExtinguisher.transform.Find("polySurface37").gameObject.GetComponent<Collider>());
+                if(firing){
+                    FireExtinguisher.GetComponent<Animator>().Play("UnPressing Handle");
+                    FireExtinguisher.transform.Find("Smoke").gameObject.SetActive(false);
+                    firing = false;
+                }
+            }
+        }
     }
     void Update()
     {
-        if(on){
+        if(on && !finishgame){
             if (Input.GetMouseButtonDown (0)) 
             {
                 Debug.Log("Press");
                 RaycastHit hitInfo = new RaycastHit ();
                 if (Physics.Raycast (Camera.main.ScreenPointToRay (Input.mousePosition), out hitInfo)) 
                 {
-                    Debug.Log ("Object Hit is " + hitInfo.collider.name);
+                    Debug.Log ("Object Hit is " + hitInfo.collider.gameObject.name);
                     if (hitInfo.collider.name == "Circle.001" && !fireAlarmActivated){
                         FireAlarmHandle.GetComponent<Animator>().Play("Pull Handle");
                         fireAlarmActivated = true;
@@ -93,8 +113,12 @@ public class GameControllerV2 : MonoBehaviour
             
                     }
 
-                    if (hitInfo.collider.name == "polySurface10" & PinIsRemoved & !aimed)
+                    if (hitInfo.collider.gameObject.name == "polySurface36" || hitInfo.collider.gameObject.name == "polySurface37"){
+
+                    }
+                    else if (hitInfo.collider.gameObject.name == "PipeCube" & PinIsRemoved & !aimed)
                     {
+                        Debug.Log("here");
                         Destroy (FireExtinguisher.transform.Find("polySurface14").gameObject);
                         FireExtinguisher.GetComponent<Animator>().Play("Point Pipe Towards Fire");
                         aimed = true;
@@ -110,7 +134,7 @@ public class GameControllerV2 : MonoBehaviour
                 if (Physics.Raycast (Camera.main.ScreenPointToRay (Input.mousePosition), out hitInfo)) {
                     if ((hitInfo.collider.gameObject.name == "polySurface36" | hitInfo.collider.gameObject.name == "polySurface37") && aimed)
                     {
-                        Debug.Log("Fireeee");
+                        // Debug.Log("Fireeee");
                         FireExtinguisher.GetComponent<Animator>().Play("Pressing Handle");
                         FireExtinguisher.transform.Find("Smoke").gameObject.SetActive(true);
                         firing = true;
@@ -126,14 +150,17 @@ public class GameControllerV2 : MonoBehaviour
                     FireExtinguisher.GetComponent<Animator>().Play("UnPressing Handle");
                     FireExtinguisher.transform.Find("Smoke").gameObject.SetActive(false);
                     firing = false;
-                    AlarmSound.SetActive(false);
-                    message.text = "Congratulations! You have put out the fire";
+                    if(putout) {
+                        AlarmSound.SetActive(false);
+                        message.text = "Congratulations! The fire has been put out";
+                        finishgame = true;
+                    }
                 }
 
 
             }
         }
-        else{
+        else if (!finishgame){
             message.text = "You have run out of time. Click on Reset to try again";
         }
 

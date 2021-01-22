@@ -9,7 +9,7 @@ public class CameraScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(GameControllerV2.on){
+        if(GameControllerV2.on && !GameControllerV2.finishgame){
             float speed = 4.0f;
             var velocidade = 30;
 
