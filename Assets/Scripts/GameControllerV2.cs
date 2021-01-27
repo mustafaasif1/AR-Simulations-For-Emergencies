@@ -50,9 +50,7 @@ public class GameControllerV2 : MonoBehaviour
         ExtinguisherInFrontOfCamera = false;
         aimed = false;
         fireAlarmActivated = false;
-        finishgame = false;
-
-        
+        finishgame = false; 
     }
 
     // Update is called once per frame
