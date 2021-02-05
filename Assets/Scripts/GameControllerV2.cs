@@ -95,14 +95,14 @@ public class GameControllerV2 : MonoBehaviour
                     if (hitInfo.collider.gameObject.name == "Fire Extinguisher" && fireAlarmActivated)
                     {
                         FireExtinguisher.transform.parent = Cam.transform;
-                        FireExtinguisher.transform.position = new Vector3(Cam.transform.position.x - 1.5f, Cam.transform.position.y - 1.6f ,Cam.transform.position.z - 8.5f);
+                        FireExtinguisher.transform.position = new Vector3(Cam.transform.position.x - 1.5f, Cam.transform.position.y - 2.3f ,Cam.transform.position.z - 9f);
                         // FireExtinguisher.GetComponent<Animator>().Play("Bring Extinguisher to Camera");
                         ExtinguisherInFrontOfCamera = true;
                         FireExtinguisher.layer = LayerMask.NameToLayer("Ignore Raycast");
                         message.text = "Now tap on the pin to pull it out. This will break the tamper seal";
                     }
 
-                    if (hitInfo.collider.name == "polySurface14" & ExtinguisherInFrontOfCamera)
+                    if (hitInfo.collider.name == "pinMesh" & ExtinguisherInFrontOfCamera)
                     {
                         FireExtinguisher.GetComponent<Animator>().Play("Remove the Pin");
                         PinIsRemoved = true;
