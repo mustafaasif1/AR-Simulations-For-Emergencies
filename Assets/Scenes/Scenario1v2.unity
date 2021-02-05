@@ -459,6 +459,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Fire Alarm 2
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 10193900bb642b94b8ddb851eedd16cc, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2654713335656134247, guid: 10193900bb642b94b8ddb851eedd16cc, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -5579,6 +5583,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PS_Parent
       objectReference: {fileID: 0}
+    - target: {fileID: 1253142483436318, guid: 89956e675b749204c8e10395ce2b5fb9, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4521404770085940, guid: 89956e675b749204c8e10395ce2b5fb9, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.78
@@ -5826,7 +5834,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: f96a5fcd947e2404c836e5fb024a78ed, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2350584320865396950, guid: f96a5fcd947e2404c836e5fb024a78ed, type: 3}
       propertyPath: m_ReflectionProbeUsage
@@ -6305,9 +6313,9 @@ RectTransform:
   m_Father: {fileID: 1917918043}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 121, y: -856}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 121, y: -46}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1039232125
@@ -6622,6 +6630,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 576609e5bc9d64de4bc19030553b9a78, type: 3}
       propertyPath: m_Name
       value: Fire Extinguisher
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 576609e5bc9d64de4bc19030553b9a78, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1154223074477058189, guid: 576609e5bc9d64de4bc19030553b9a78, type: 3}
       propertyPath: m_LocalRotation.y
@@ -6971,6 +6983,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 846eb5a2a97e35c4490dc2c188a72397, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5233112405309087440, guid: 846eb5a2a97e35c4490dc2c188a72397, type: 3}
       propertyPath: m_Layer
       value: 0
@@ -7025,7 +7041,7 @@ GameObject:
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -7043,10 +7059,10 @@ RectTransform:
   m_Father: {fileID: 1917918043}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -441, y: 862}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 148.29999, y: -70}
+  m_SizeDelta: {x: 93.62222, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1298882270
 MonoBehaviour:
@@ -7131,7 +7147,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 1
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: 0, z: -0.8802093, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -7424,6 +7440,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1788926833}
   - component: {fileID: 1788926832}
+  - component: {fileID: 1788926834}
   m_Layer: 0
   m_Name: Game Controller
   m_TagString: Untagged
@@ -7470,6 +7487,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1788926834
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1788926831}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f0811c25166f0e44a969e6ef4d863c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TrackedPlanePrefab: {fileID: 1654175882956584, guid: 6a35c744e5010405c847fad90282d2be, type: 3}
 --- !u!1 &1823398279
 GameObject:
   m_ObjectHideFlags: 0
@@ -7716,9 +7746,9 @@ RectTransform:
   m_Father: {fileID: 1917918043}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 378, y: 825}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -181, y: -65}
   m_SizeDelta: {x: 160, y: 38.40674}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2110830439
@@ -7817,9 +7847,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wall
       objectReference: {fileID: 0}
+    - target: {fileID: 1410195168704871586, guid: 82c30c96ba350f34591925bf439c4c56, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4363284345306840432, guid: 82c30c96ba350f34591925bf439c4c56, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.46
+      value: -2.37
       objectReference: {fileID: 0}
     - target: {fileID: 4363284345306840432, guid: 82c30c96ba350f34591925bf439c4c56, type: 3}
       propertyPath: m_LocalPosition.y
