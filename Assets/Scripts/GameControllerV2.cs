@@ -95,7 +95,7 @@ public class GameControllerV2 : MonoBehaviour
                     if (hitInfo.collider.gameObject.name == "Fire Extinguisher" && fireAlarmActivated)
                     {
                         FireExtinguisher.transform.parent = Cam.transform;
-                        FireExtinguisher.transform.position = new Vector3(Cam.transform.position.x - 1.5f, Cam.transform.position.y - 2.3f ,Cam.transform.position.z - 9f);
+                        FireExtinguisher.transform.position = new Vector3(Cam.transform.position.x - 1.5f, Cam.transform.position.y - 2.5f ,Cam.transform.position.z - 9f);
                         // FireExtinguisher.GetComponent<Animator>().Play("Bring Extinguisher to Camera");
                         ExtinguisherInFrontOfCamera = true;
                         FireExtinguisher.layer = LayerMask.NameToLayer("Ignore Raycast");
@@ -122,7 +122,7 @@ public class GameControllerV2 : MonoBehaviour
                         aimed = true;
                         Destroy(FireExtinguisher.transform.Find("polySurface10").gameObject.GetComponent<Collider>());
                         Destroy(FireExtinguisher.GetComponent<Collider>());
-                        message.text = "Now press and hold the handle to release the extinguishing agent until the fire is put out";
+                        message.text = "Now move towards the dustbin and keep pressing the handle to release the extinguishing agent until the fire is put out";
                     }
 
                 } 
