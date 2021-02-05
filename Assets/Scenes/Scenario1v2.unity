@@ -7447,6 +7447,7 @@ MonoBehaviour:
   FireExtinguisher: {fileID: 1572242590}
   Dustbin: {fileID: 339905945}
   Cam: {fileID: 1200291788}
+  CameraObj: {fileID: 1408445070}
   FireAlarmHandle: {fileID: 1179683380}
   AlarmSound: {fileID: 438430826}
   Reset: {fileID: 2110830439}

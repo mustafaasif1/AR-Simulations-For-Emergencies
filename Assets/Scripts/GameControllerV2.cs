@@ -11,6 +11,7 @@ public class GameControllerV2 : MonoBehaviour
     public GameObject FireExtinguisher;
     public GameObject Dustbin;
     public GameObject Cam;
+    public GameObject CameraObj;
     public GameObject FireAlarmHandle;
     public GameObject AlarmSound;    
 
@@ -95,7 +96,8 @@ public class GameControllerV2 : MonoBehaviour
                     if (hitInfo.collider.gameObject.name == "Fire Extinguisher" && fireAlarmActivated)
                     {
                         FireExtinguisher.transform.parent = Cam.transform;
-                        FireExtinguisher.transform.position = new Vector3(Cam.transform.position.x - 1.5f, Cam.transform.position.y - 2.5f ,Cam.transform.position.z - 9f);
+                        FireExtinguisher.transform.position = new Vector3(CameraObj.transform.position.x + 1.2f, CameraObj.transform.position.y - 1.5f,CameraObj.transform.position.z - 9f + 4*CameraObj.transform.rotation.y);
+                        
                         // FireExtinguisher.GetComponent<Animator>().Play("Bring Extinguisher to Camera");
                         ExtinguisherInFrontOfCamera = true;
                         FireExtinguisher.layer = LayerMask.NameToLayer("Ignore Raycast");
