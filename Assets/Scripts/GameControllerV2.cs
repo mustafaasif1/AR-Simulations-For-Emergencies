@@ -11,7 +11,7 @@ public class GameControllerV2 : MonoBehaviour
     public GameObject FireExtinguisher;
     public GameObject Dustbin;
     public GameObject Cam;
-    public GameObject CameraObj;
+    public GameObject playerCamera;
     public GameObject FireAlarmHandle;
     public GameObject AlarmSound;    
 
@@ -22,7 +22,7 @@ public class GameControllerV2 : MonoBehaviour
     public TextMeshProUGUI message;
     public TextMeshProUGUI TimeCount;
 
-    public int TimeRemaining;
+    public int TimeRemaining = 120;
     public float TimeTrack;
 
 
@@ -34,15 +34,15 @@ public class GameControllerV2 : MonoBehaviour
     public static bool finishgame = false;
     public static bool on;
     public static bool putout;
+    public static bool figured = false;
+    public bool initDone = false;
     // Start is called before the first frame update
-    void Start()
-    {
-        message.text = "Your dust bin has just caught fire and you have to put it out. Find the fire alarm and tap on the handle to activate it.";
+    void Start(){
+        TimeCount.gameObject.SetActive(false);
         StartingScene = SceneManager.GetActiveScene();
         Reset.onClick.AddListener(ResetClick);
-        FireExtinguisher.transform.Find("polySurface10").gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
         AlarmSound.SetActive(false); 
-        TimeRemaining = 120;
+        TimeRemaining = 200;
         TimeTrack = 120;
         TimeCount.text = TimeRemaining.ToString();
         on = true; 
@@ -52,11 +52,35 @@ public class GameControllerV2 : MonoBehaviour
         aimed = false;
         fireAlarmActivated = false;
         finishgame = false; 
+        initDone = false;
+
+        
+    }
+    void StartUp()
+    {
+        message.text = "Your dust bin has just caught fire and you have to put it out. Find the fire alarm and tap on the handle to activate it.";
+        StartingScene = SceneManager.GetActiveScene();
+        Reset.onClick.AddListener(ResetClick);
+        FireExtinguisher.transform.Find("polySurface10").gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
+        AlarmSound.SetActive(false); 
+        TimeRemaining = 200;
+        TimeTrack = 120;
+        TimeCount.text = TimeRemaining.ToString();
+        on = true; 
+        putout = false; 
+        PinIsRemoved = false;
+        ExtinguisherInFrontOfCamera = false;
+        aimed = false;
+        fireAlarmActivated = false;
+        finishgame = false;
+        TimeCount.gameObject.SetActive(true);
+        initDone = true;
     }
 
     // Update is called once per frame
     void FixedUpdate(){
         TimeTrack -= 1/50f;
+        
         if (!finishgame) {
             TimeRemaining = (int)TimeTrack;
             int minutes = TimeRemaining/60;
@@ -79,6 +103,15 @@ public class GameControllerV2 : MonoBehaviour
     }
     void Update()
     {
+        if (figured){
+            FireExtinguisher = GameObject.Find("Fire Extinguisher");
+            Dustbin = GameObject.Find("trash_can");
+            FireAlarmHandle = GameObject.Find("Fire Alarm 2");
+            
+            StartUp();
+            figured = false;
+
+        }
         if(on && !finishgame){
             if (Input.GetMouseButtonDown (0)) 
             {
@@ -96,7 +129,8 @@ public class GameControllerV2 : MonoBehaviour
                     if (hitInfo.collider.gameObject.name == "Fire Extinguisher" && fireAlarmActivated)
                     {
                         FireExtinguisher.transform.parent = Cam.transform;
-                        FireExtinguisher.transform.position = new Vector3(CameraObj.transform.position.x + 1.2f, CameraObj.transform.position.y - 1.5f,CameraObj.transform.position.z - 9f + 4*CameraObj.transform.rotation.y);
+                        
+                        FireExtinguisher.transform.position = new Vector3(Cam.transform.position.x - 1.5f + 0.009f*playerCamera.transform.localRotation.eulerAngles.y , Cam.transform.position.y - 2.5f,Cam.transform.position.z - 9f - 0.01f*playerCamera.transform.localRotation.eulerAngles.y);
                         
                         // FireExtinguisher.GetComponent<Animator>().Play("Bring Extinguisher to Camera");
                         ExtinguisherInFrontOfCamera = true;
@@ -160,7 +194,7 @@ public class GameControllerV2 : MonoBehaviour
 
             }
         }
-        else if (!finishgame){
+        else if (!finishgame && initDone){
             message.text = "You have run out of time. Click on Reset to try again";
         }
 
