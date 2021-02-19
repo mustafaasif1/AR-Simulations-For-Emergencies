@@ -33,7 +33,7 @@ public class DetectedPlaneVisualizer1 : MonoBehaviour
             active = true;
         }
         if(!doneTouch){
-        if (Input.touchCount == 1){
+        if (Input.touchCount >= 1){
             Touch touch = Input.GetTouch(0);
             TrackableHit hit;
             TrackableHitFlags raycastFilter = TrackableHitFlags.Default;

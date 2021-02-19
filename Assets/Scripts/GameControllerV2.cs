@@ -13,7 +13,8 @@ public class GameControllerV2 : MonoBehaviour
     public GameObject Cam;
     public GameObject playerCamera;
     public GameObject FireAlarmHandle;
-    public GameObject AlarmSound;    
+    public GameObject AlarmSound;
+    public GameObject FireExtingParent;
 
     public Button Reset;
     
@@ -61,7 +62,6 @@ public class GameControllerV2 : MonoBehaviour
         message.text = "Your dust bin has just caught fire and you have to put it out. Find the fire alarm and tap on the handle to activate it.";
         StartingScene = SceneManager.GetActiveScene();
         Reset.onClick.AddListener(ResetClick);
-        FireExtinguisher.transform.Find("polySurface10").gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
         AlarmSound.SetActive(false); 
         TimeRemaining = 200;
         TimeTrack = 120;
@@ -107,6 +107,8 @@ public class GameControllerV2 : MonoBehaviour
             FireExtinguisher = GameObject.Find("Fire Extinguisher");
             Dustbin = GameObject.Find("trash_can");
             FireAlarmHandle = GameObject.Find("Fire Alarm 2");
+            FireExtingParent = GameObject.Find("FireExtingParent");
+            
             
             StartUp();
             figured = false;
@@ -120,20 +122,27 @@ public class GameControllerV2 : MonoBehaviour
                 if (Physics.Raycast (Camera.main.ScreenPointToRay (Input.mousePosition), out hitInfo)) 
                 {
                     Debug.Log ("Object Hit is " + hitInfo.collider.gameObject.name);
-                    if (hitInfo.collider.name == "Circle.001" && !fireAlarmActivated){
-                        FireAlarmHandle.GetComponent<Animator>().Play("Pull Handle");
+                    if (hitInfo.collider.gameObject.name == "Circle.001" && !fireAlarmActivated){
+                        FireAlarmHandle.transform.Find("Circle.001").gameObject.GetComponent<Animator>().Play("Pull Handle");
                         fireAlarmActivated = true;
                         AlarmSound.SetActive(true);
                         message.text = "You have now activated the fire alarm. Now find the fire extinguisher and tap on it to hold it.";
                     }
                     if (hitInfo.collider.gameObject.name == "Fire Extinguisher" && fireAlarmActivated)
                     {
-                        FireExtinguisher.transform.parent = Cam.transform;
+                        FireExtinguisher.transform.parent = null;
+                        FireExtinguisher.transform.eulerAngles = new Vector3(0,8.535f,0);
+                        FireExtinguisher.transform.position = new Vector3(playerCamera.transform.position.x + 1.0f , playerCamera.transform.position.y - 1.5f, playerCamera.transform.position.z - 8.25f);
                         
-                        FireExtinguisher.transform.position = new Vector3(Cam.transform.position.x - 1.5f + 0.009f*playerCamera.transform.localRotation.eulerAngles.y , Cam.transform.position.y - 2.5f,Cam.transform.position.z - 9f - 0.01f*playerCamera.transform.localRotation.eulerAngles.y);
+                        FireExtingParent.transform.position = playerCamera.transform.position;
                         
-                        // FireExtinguisher.GetComponent<Animator>().Play("Bring Extinguisher to Camera");
+                        FireExtinguisher.transform.parent = FireExtingParent.transform;
+                        
+                        FireExtingParent.transform.eulerAngles = playerCamera.transform.eulerAngles;
+                        
                         ExtinguisherInFrontOfCamera = true;
+                        FireExtingParent.transform.parent = Cam.transform;
+                        
                         FireExtinguisher.layer = LayerMask.NameToLayer("Ignore Raycast");
                         message.text = "Now tap on the pin to pull it out. This will break the tamper seal";
                     }
