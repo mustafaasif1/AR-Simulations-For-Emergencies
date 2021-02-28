@@ -25,6 +25,7 @@ namespace GoogleARCore.Examples.Common
     using UnityEngine;
     using UnityEngine.Serialization;
     using UnityEngine.UI;
+    using TMPro;
 
     /// <summary>
     /// Provides plane discovery visuals that guide users to scan surroundings and discover planes.
@@ -50,6 +51,9 @@ namespace GoogleARCore.Examples.Common
                  "instructions on how to find a plane.")]
         public float OfferDetailedInstructionsDelay = 8.0f;
 
+
+        public TextMeshProUGUI message;
+    
         /// <summary>
         /// The time to delay, after Unity Start, showing the plane discovery guide.
         /// </summary>
@@ -155,6 +159,7 @@ namespace GoogleARCore.Examples.Common
             _moreHelpWindow.SetActive(false);
             _isLostTrackingDisplayed = false;
             _notDetectedPlaneElapsed = DisplayGuideDelay - _onStartDelay;
+            message.text = "Scanning for Planes \nAdjust Height of Camera to be close to the plane";
         }
 
         /// <summary>
@@ -171,8 +176,15 @@ namespace GoogleARCore.Examples.Common
         /// </summary>
         public void Update()
         {
-            UpdateDetectedPlaneTrackingState();
-            UpdateUI();
+            if(!GameControllerV2.initDone){
+                UpdateDetectedPlaneTrackingState();
+                UpdateUI();
+            } else{
+
+                _featurePoints.SetActive(false);
+                _snackBar.SetActive(false);
+                _openButton.SetActive(false);
+            }
         }
 
         /// <summary>
@@ -233,6 +245,7 @@ namespace GoogleARCore.Examples.Common
                 {
                     _detectedPlaneElapsed += Time.deltaTime;
                     _notDetectedPlaneElapsed = 0f;
+                    message.text = "Some meshes have been created. Please tap on one to continue with the scene";
                     return;
                 }
             }

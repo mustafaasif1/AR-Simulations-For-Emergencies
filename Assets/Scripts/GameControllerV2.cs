@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
+using GoogleARCore;
+using UnityEngine.EventSystems;
+
 
 public class GameControllerV2 : MonoBehaviour
 {
@@ -15,6 +18,10 @@ public class GameControllerV2 : MonoBehaviour
     public GameObject FireAlarmHandle;
     public GameObject AlarmSound;
     public GameObject FireExtingParent;
+    public GameObject GameObjectVerticalPlanePrefab;
+    public GameObject GameObjectHorizontalPlanePrefab;
+
+    private const float _prefabRotation = 0.0f;
 
     public Button Reset;
     
@@ -35,8 +42,8 @@ public class GameControllerV2 : MonoBehaviour
     public static bool finishgame = false;
     public static bool on;
     public static bool putout;
-    public static bool figured = false;
-    public bool initDone = false;
+    public static bool figured;
+    public static bool initDone;
     // Start is called before the first frame update
     void Start(){
         TimeCount.gameObject.SetActive(false);
@@ -54,6 +61,7 @@ public class GameControllerV2 : MonoBehaviour
         fireAlarmActivated = false;
         finishgame = false; 
         initDone = false;
+        figured = false;
 
         
     }
@@ -103,6 +111,96 @@ public class GameControllerV2 : MonoBehaviour
     }
     void Update()
     {
+
+        if(!initDone){
+            Touch touch;
+            if (Input.touchCount < 1 || (touch = Input.GetTouch(0)).phase != TouchPhase.Began)
+            {
+                return;
+            }
+
+            // Should not handle input if the player is pointing on UI.
+            if (EventSystem.current.IsPointerOverGameObject(touch.fingerId))
+            {
+                return;
+            }
+
+            // Raycast against the location the player touched to search for planes.
+            TrackableHit hit;
+            bool foundHit = false;
+            
+            TrackableHitFlags raycastFilter = TrackableHitFlags.PlaneWithinPolygon |
+                TrackableHitFlags.FeaturePointWithSurfaceNormal;
+            foundHit = Frame.Raycast(
+                touch.position.x, touch.position.y, raycastFilter, out hit);
+        
+
+            if (foundHit)
+            {
+                // Use hit pose and camera pose to check if hittest is from the
+                // back of the plane, if it is, no need to create the anchor.
+                if ((hit.Trackable is DetectedPlane) &&
+                    Vector3.Dot(Cam.transform.position - hit.Pose.position,
+                        hit.Pose.rotation * Vector3.up) < 0)
+                {
+                    message.text = "Hit at back of the current DetectedPlane";
+                }
+                else
+                {
+                    
+
+                    // Choose the prefab based on the Trackable that got hit.
+                    GameObject prefab;
+                    if (hit.Trackable is DetectedPlane)
+                    {
+                        DetectedPlane detectedPlane = hit.Trackable as DetectedPlane;
+                        if (detectedPlane.PlaneType == DetectedPlaneType.Vertical)
+                        {
+                            prefab = GameObjectVerticalPlanePrefab;
+                        }
+                        else
+                        {
+                            prefab = GameObjectHorizontalPlanePrefab;
+                        }
+                        initDone = true;
+                        figured = true;
+                    }
+                    else{
+                        prefab = GameObjectVerticalPlanePrefab;
+                        message.text = "Please tap a mesh";
+
+                    }
+                    
+
+                    // Instantiate prefab at the hit pose.
+                    if (initDone){
+                    var gameObject = Instantiate(prefab, hit.Pose.position, hit.Pose.rotation);
+
+                    // Compensate for the hitPose rotation facing away from the raycast (i.e.
+                    // camera).
+                    gameObject.transform.Rotate(0, _prefabRotation, 0, Space.Self);
+
+                    // Create an anchor to allow ARCore to track the hitpoint as understanding of
+                    // the physical world evolves.
+                    var anchor = hit.Trackable.CreateAnchor(hit.Pose);
+
+                    // Make game object a child of the anchor.
+                    gameObject.transform.parent = anchor.transform;
+                    }
+                    // Initialize Instant Placement Effect.
+                    
+                }
+            } 
+
+
+
+
+
+
+        }
+
+
+
         if (figured){
             FireExtinguisher = GameObject.Find("Fire Extinguisher");
             Dustbin = GameObject.Find("trash_can");
