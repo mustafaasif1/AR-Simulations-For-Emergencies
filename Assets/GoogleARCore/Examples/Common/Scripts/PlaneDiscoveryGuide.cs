@@ -176,7 +176,7 @@ namespace GoogleARCore.Examples.Common
         /// </summary>
         public void Update()
         {
-            if(!GameControllerV2.initDone){
+            if(!CRPController.initDone){
                 UpdateDetectedPlaneTrackingState();
                 UpdateUI();
             } else{
