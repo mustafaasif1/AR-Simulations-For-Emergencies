@@ -25,7 +25,7 @@ public class CRPController : MonoBehaviour
     public float TimeTrack;
     public TextMeshProUGUI TimeCount;
     public int TimeRemaining = 20;
-    public bool gameOn;
+    public static bool gameOn;
     public bool compressionDone;
     public bool mouthToMouth;
     public bool listened;
@@ -45,7 +45,6 @@ public class CRPController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        message.text = "The person is lying on the floor. Tap on the nose to check for his breath";
         StartingScene = SceneManager.GetActiveScene();
         Reset.onClick.AddListener(ResetClick);
         Shout.onClick.AddListener(ShoutClick);
@@ -57,13 +56,13 @@ public class CRPController : MonoBehaviour
         TimeRemaining = 20;
         TimeTrack = 20;
         TimeCount.gameObject.SetActive(false);
-        gameOn = true;
+        gameOn = false;
         compressionDone = false;
         mouthToMouth = false;
         listened = false;
         allowed = true;
-        initDone = true;
-        figured = true;
+        initDone = false;
+        figured = false;
     }
 
 
@@ -202,6 +201,7 @@ public class CRPController : MonoBehaviour
             Hands.SetActive(false);
             male = GameObject.Find("Male_1");
             female = GameObject.Find("Female");
+            message.text = "The person is lying on the floor. Tap on the nose to check for his breath";
             
             figured = false;
             gameOn = true;
@@ -268,6 +268,7 @@ public class CRPController : MonoBehaviour
             TimeCount.gameObject.SetActive(true);
         }
         else if (firstTime & allowed){
+            
             counter ++;
             message.text = counter.ToString();
             allowed = false;

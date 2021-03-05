@@ -180,7 +180,6 @@ namespace GoogleARCore.Examples.Common
                 UpdateDetectedPlaneTrackingState();
                 UpdateUI();
             } else{
-
                 _featurePoints.SetActive(false);
                 _snackBar.SetActive(false);
                 _openButton.SetActive(false);
