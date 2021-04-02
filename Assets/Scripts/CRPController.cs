@@ -71,7 +71,8 @@ public class CRPController : MonoBehaviour
             TimeTrack = 20;
             TimeRemaining = 20;
         }
-        if (firstTime && gameOn && !compressionDone) {
+        if (firstTime && gameOn && !compressionDone) 
+        {
             TimeTrack -= 1/50f;
             TimeRemaining = (int)TimeTrack;
             int minutes = TimeRemaining/60;
@@ -82,7 +83,7 @@ public class CRPController : MonoBehaviour
             } else{
                 TimeCount.color = new Color32(0, 255, 0,255);
             }
-            if(firstTime & seconds >= 10) TimeCount.text = minutes.ToString() + ":" + seconds.ToString();
+            if (firstTime & seconds >= 10) TimeCount.text = minutes.ToString() + ":" + seconds.ToString();
             else if (firstTime) TimeCount.text = minutes.ToString() + ":0" + seconds.ToString();
             else TimeCount.text = "0:00";
             if(TimeRemaining == 0) {
@@ -99,15 +100,12 @@ public class CRPController : MonoBehaviour
                 TimeTrack = 20;
                 TimeRemaining = 20;
                 compressionDone = false;
-                }
-        
+                }    
     }
 
     // Update is called once per frame
     void Update()
     {
-
-
         if(!initDone){
             Touch touch;
             if (Input.touchCount < 1 || (touch = Input.GetTouch(0)).phase != TouchPhase.Began)
@@ -143,8 +141,6 @@ public class CRPController : MonoBehaviour
                 }
                 else
                 {
-                    
-
                     // Choose the prefab based on the Trackable that got hit.
                     GameObject prefab;
                     if (hit.Trackable is DetectedPlane)
@@ -164,10 +160,8 @@ public class CRPController : MonoBehaviour
                     else{
                         prefab = GameObjectVerticalPlanePrefab;
                         message.text = "Please tap a mesh";
-
                     }
                     
-
                     // Instantiate prefab at the hit pose.
                     if (initDone){
                     var gameObject = Instantiate(prefab, hit.Pose.position, hit.Pose.rotation);

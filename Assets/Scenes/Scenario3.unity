@@ -261,6 +261,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: RollingOnTheFloor-Left
       objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: 88a429e0823df594fb95eb3d5ee1c879, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 671507febfe07d247a767c62a289de6d, type: 2}
+    - target: {fileID: 5866666021909216657, guid: 88a429e0823df594fb95eb3d5ee1c879, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 88a429e0823df594fb95eb3d5ee1c879, type: 3}
 --- !u!1 &1863738119
