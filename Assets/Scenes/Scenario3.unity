@@ -419,6 +419,8 @@ MonoBehaviour:
   Reset: {fileID: 383167414}
   StartingScene:
     m_Handle: 0
+  rolledTimes: 0
+  letsRoll: 0
 --- !u!1 &383167412
 GameObject:
   m_ObjectHideFlags: 0
@@ -686,7 +688,7 @@ RectTransform:
   m_GameObject: {fileID: 1016660800}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3.6286366, y: 1, z: 1}
+  m_LocalScale: {x: 1.5876011, y: 1.15, z: 1}
   m_Children: []
   m_Father: {fileID: 1154510841}
   m_RootOrder: 0
@@ -716,7 +718,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Fall
+  m_text: 'Put On Fire
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
@@ -821,7 +825,7 @@ RectTransform:
   m_GameObject: {fileID: 1154510840}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.37052032, y: 1.4169219, z: 1}
+  m_LocalScale: {x: 0.673826, y: 2.4264786, z: 1}
   m_Children:
   - {fileID: 1016660801}
   m_Father: {fileID: 48137529}
@@ -829,7 +833,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -80, y: -97}
+  m_AnchoredPosition: {x: -65, y: -73}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1154510842
@@ -1501,7 +1505,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 919132148304135429}
   m_LocalRotation: {x: -0, y: -0, z: -0.03333993, w: 0.9994441}
-  m_LocalPosition: {x: -2.8, y: -0.02, z: 0.66}
+  m_LocalPosition: {x: -0.65, y: -0.16, z: -0.85}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1199494803}
@@ -3196,7 +3200,13 @@ Animator:
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
-  m_WarningMessage: 
+  m_WarningMessage: "\nBinding warning: Some generic clip(s) animate transforms that
+    are already bound by a Humanoid avatar. These transforms can only be changed
+    by Humanoid clips.\n\tTransform 'mixamorig:Hips'\n\tTransform 'mixamorig:LeftFoot'\n\tTransform
+    'mixamorig:LeftHandThumb2'\n\tTransform 'mixamorig:LeftHandIndex1'\n\tTransform
+    'mixamorig:RightHandRing2'\n\tTransform 'mixamorig:Spine1'\n\tTransform 'mixamorig:LeftToeBase'\n\tTransform
+    'mixamorig:LeftHandThumb3'\n\tTransform 'mixamorig:RightArm'\n\tTransform 'mixamorig:LeftLeg'\n\tand
+    more ...\n\tFrom animation clip 'Rolling Person Opposite'"
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
