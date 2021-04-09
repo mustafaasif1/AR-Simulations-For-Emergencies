@@ -110,6 +110,7 @@ public class PersonCatchingFireController : MonoBehaviour
 
             ActionButton.onClick.RemoveListener(Roller);
             ActionButton.onClick.AddListener(Stander);
+            Fire.GetComponentInChildren<ParticleSystem>().Stop();
             ActionButton.GetComponentInChildren<TextMeshProUGUI>().text = "Stand Up";
             message.text = "Stand Up. Immediately treat the area with cool running water (e.g. from a cold tap) for 20 minutes. Only apply the water to the burned area. Consult a doctor.";
 
@@ -123,6 +124,7 @@ public class PersonCatchingFireController : MonoBehaviour
         {
             Person.GetComponent<Animator>().Play("Standing Person");
             ActionButton.onClick.RemoveListener(Stander);
+            ActionButton.gameObject.SetActive(false);
         }
 
     }
