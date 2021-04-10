@@ -61,8 +61,8 @@ public class CRPController : MonoBehaviour
         mouthToMouth = false;
         listened = false;
         allowed = true;
-        initDone = false;
-        figured = false;
+        initDone = true;
+        figured = true;
     }
 
 
@@ -191,10 +191,9 @@ public class CRPController : MonoBehaviour
 
         if (figured){
             
-            Hands = GameObject.Find("Hands");
-            Hands.SetActive(false);
-            male = GameObject.Find("Male_1");
-            female = GameObject.Find("Female");
+            male = GameObject.Find("Receiving Cpr");
+            female = GameObject.Find("Giving Cpr");
+            
             message.text = "The person is lying on the floor. Tap on the nose to check for his breath";
             
             figured = false;
@@ -213,13 +212,15 @@ public class CRPController : MonoBehaviour
                     {
                         Debug.Log ("Object Hit is " + hitInfo.collider.gameObject.name);
                         if (hitInfo.collider.gameObject.name == "HandMesh" & !handsTogether & listened){
-                            Hands.GetComponent<Animator>().Play("Put Hands Together");
                             handsTogether = true;
                             message.text = "Well Done! Now tap on the button to beign the CPR";
-                            Mover.gameObject.SetActive(true);
+                            female.GetComponent<Animator>().Play("Wide Hands 1");
+                            Mover.gameObject.SetActive(true); 
                         }
                         if (hitInfo.collider.gameObject.name == "FaceMesh" & !listened){
-                            female.GetComponent<Animator>().Play("Female Listening on Breathing");
+                            female.GetComponent<Animator>().Play("Checking for breath");
+                            male.transform.Find("FaceMesh").gameObject.SetActive(false);
+                            female.transform.Find("HandMesh").gameObject.SetActive(true);
                             StartCoroutine(waiter());
                             
                         }
@@ -231,17 +232,22 @@ public class CRPController : MonoBehaviour
 
 
     IEnumerator waiter(){
-        yield return new WaitForSeconds(8);
-        Hands.SetActive(true);
-        female.SetActive(false);
+        yield return new WaitForSeconds(5);
         listened = true;
         message.text = "We felt no breath on our hand. Now, press on the hands to bring them together and give a CPR";
+        female.GetComponent<Animator>().Play("Back to Sitting");
+        StartCoroutine(widenHands());
         
     }
 
     IEnumerator waitForCPR(){
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(0.5f);
         allowed = true;
+    }
+
+    IEnumerator widenHands(){
+        yield return new WaitForSeconds(0.7f);
+        female.GetComponent<Animator>().Play("Wide Hands");
     }
 
     void ResetClick(){
@@ -253,12 +259,12 @@ public class CRPController : MonoBehaviour
     }
     void HandsMover(){
         if (allowed){
-            Hands.GetComponent<Animator>().Play("Compress Hands");
-            male.GetComponent<Animator>().Play("Chest shaking");
+            female.GetComponent<Animator>().Play("Compress Hands");
+            male.GetComponent<Animator>().Play("Chest Shaking");
         }
         if (!firstTime){
             firstTime = true;
-            message.text = "Excellent! Now keep on tapping the same button to compress the chest 30 times in 20 seconds";
+            message.text = "Excellent! Now keep on tapping the same button to compress the chest 20 times in 20 seconds";
             TimeCount.gameObject.SetActive(true);
         }
         else if (firstTime & allowed){
@@ -270,15 +276,14 @@ public class CRPController : MonoBehaviour
             
         }
 
-        if(counter > 29){
+        if(counter > 19){
             message.text = "Well Done! The Person is Now able to breath again thanks to you!";
-            Hands.SetActive(false);
             compressionDone = true;
             mouthToMouth = true;
             gameOn = false;
             Mover.gameObject.SetActive(false);
             counter = 0;
-            male.GetComponent<Animator>().Play("Waking Up");
+            male.GetComponent<Animator>().Play("Standing Up");
        
         }
         
