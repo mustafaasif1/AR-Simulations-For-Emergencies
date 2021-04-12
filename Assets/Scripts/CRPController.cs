@@ -236,8 +236,7 @@ public class CRPController : MonoBehaviour
         listened = true;
         message.text = "We felt no breath on our hand. Now, press on the hands to bring them together and give a CPR";
         female.GetComponent<Animator>().Play("Back to Sitting");
-        StartCoroutine(widenHands());
-        
+        female.GetComponent<Animator>().SetTrigger("WidenTrig");
     }
 
     IEnumerator waitForCPR(){
@@ -245,9 +244,10 @@ public class CRPController : MonoBehaviour
         allowed = true;
     }
 
-    IEnumerator widenHands(){
-        yield return new WaitForSeconds(0.7f);
-        female.GetComponent<Animator>().Play("Wide Hands");
+    IEnumerator waitForWithdraw(){
+        yield return new WaitForSeconds(0.5f);
+        male.GetComponent<Animator>().Play("Standing Up");
+        
     }
 
     void ResetClick(){
@@ -260,7 +260,9 @@ public class CRPController : MonoBehaviour
     void HandsMover(){
         if (allowed){
             female.GetComponent<Animator>().Play("Compress Hands");
-            male.GetComponent<Animator>().Play("Chest Shaking");
+            if (counter<19){
+                male.GetComponent<Animator>().Play("Chest Shaking");
+            }
         }
         if (!firstTime){
             firstTime = true;
@@ -283,7 +285,9 @@ public class CRPController : MonoBehaviour
             gameOn = false;
             Mover.gameObject.SetActive(false);
             counter = 0;
-            male.GetComponent<Animator>().Play("Standing Up");
+            female.GetComponent<Animator>().Play("Hands Withdraw");
+            StartCoroutine(waitForWithdraw());
+            
        
         }
         
