@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 using TMPro;
 using GoogleARCore;
 using UnityEngine.EventSystems;
+using GoogleARCore.Examples.Common;
 
 
 public class GameControllerV2 : MonoBehaviour
@@ -67,6 +68,8 @@ public class GameControllerV2 : MonoBehaviour
     }
     void StartUp()
     {
+        PlaneDiscoveryGuide.myInitDone = true;
+        
         message.text = "Your dust bin has just caught fire and you have to put it out. Find the fire alarm and tap on the handle to activate it.";
         StartingScene = SceneManager.GetActiveScene();
         Reset.onClick.AddListener(ResetClick);
@@ -82,6 +85,7 @@ public class GameControllerV2 : MonoBehaviour
         fireAlarmActivated = false;
         finishgame = false;
         TimeCount.gameObject.SetActive(true);
+        
         initDone = true;
     }
 

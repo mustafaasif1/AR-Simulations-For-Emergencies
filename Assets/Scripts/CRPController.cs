@@ -6,16 +6,15 @@ using UnityEngine.SceneManagement;
 using TMPro;
 using UnityEngine.EventSystems;
 using GoogleARCore;
+using GoogleARCore.Examples.Common;
 
-public class CRPController : MonoBehaviour
-{
+
+public class CRPController : MonoBehaviour{
     public GameObject Canvas;
-
     public Button Shout;
     public Button Reset;
     public GameObject Hands;
     public Scene StartingScene;
-
     public TextMeshProUGUI message;
     public bool handsTogether;
     public int counter;
@@ -36,7 +35,6 @@ public class CRPController : MonoBehaviour
     public static bool initDone;
     public GameObject Cam;
     public bool figured;
-    
     private const float _prefabRotation = 0.0f;
 
     
@@ -61,8 +59,8 @@ public class CRPController : MonoBehaviour
         mouthToMouth = false;
         listened = false;
         allowed = true;
-        initDone = true;
-        figured = true;
+        initDone = false;
+        figured = false;
     }
 
 
@@ -155,7 +153,10 @@ public class CRPController : MonoBehaviour
                             prefab = GameObjectHorizontalPlanePrefab;
                         }
                         initDone = true;
+                        PlaneDiscoveryGuide.myInitDone = true;
+        
                         figured = true;
+                        
                     }
                     else{
                         prefab = GameObjectVerticalPlanePrefab;
@@ -181,13 +182,9 @@ public class CRPController : MonoBehaviour
                     
                 }
             } 
-
-
-
-
-
-
         }
+
+
 
         if (figured){
             
@@ -224,11 +221,10 @@ public class CRPController : MonoBehaviour
                             StartCoroutine(waiter());
                             
                         }
-
                     }
                 }
+            }
         }
-    }
 
 
     IEnumerator waiter(){
@@ -257,6 +253,7 @@ public class CRPController : MonoBehaviour
     void ShoutClick(){
     	Debug.Log ("Hello");
     }
+
     void HandsMover(){
         if (allowed){
             female.GetComponent<Animator>().Play("Compress Hands");
@@ -289,8 +286,6 @@ public class CRPController : MonoBehaviour
             StartCoroutine(waitForWithdraw());
             
        
-        }
-        
-            
+        }   
     }
 }

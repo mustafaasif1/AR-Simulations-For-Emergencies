@@ -147,6 +147,8 @@ namespace GoogleARCore.Examples.Common
         /// </summary>
         private List<DetectedPlane> _detectedPlanes = new List<DetectedPlane>();
 
+        public static bool myInitDone;
+
         /// <summary>
         /// Unity's Start() method.
         /// </summary>
@@ -154,6 +156,7 @@ namespace GoogleARCore.Examples.Common
         {
             _openButton.GetComponent<Button>().onClick.AddListener(OnOpenButtonClicked);
             _gotItButton.onClick.AddListener(OnGotItButtonClicked);
+            myInitDone = false;
 
             CheckFieldsAreNotNull();
             _moreHelpWindow.SetActive(false);
@@ -176,7 +179,7 @@ namespace GoogleARCore.Examples.Common
         /// </summary>
         public void Update()
         {
-            if(!CRPController.initDone){
+            if(!myInitDone){
                 UpdateDetectedPlaneTrackingState();
                 UpdateUI();
             } else{
