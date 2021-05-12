@@ -31,7 +31,12 @@ public class SmokeSceneController : MonoBehaviour
     public GameObject Door;
     public float speed;
     public bool move;
+    public Vector3 difference;
     // Start is called before the first frame update
+
+
+    private const float _prefabRotation = 0.0f;
+
     void Start()
     {
         StartingScene = SceneManager.GetActiveScene();
@@ -40,7 +45,7 @@ public class SmokeSceneController : MonoBehaviour
         crawledTimes = 0;
         letsCrawl = true;
         maxCrawl = 8;
-        figured = true;
+        figured = false;
         initDone = false;
         gameOn = false;
         speed = 1.0f;
@@ -57,13 +62,100 @@ public class SmokeSceneController : MonoBehaviour
             Door = GameObject.Find("door modern");
             ActionButton.gameObject.SetActive(true);
             ActionButton.onClick.AddListener(onSmoke);
-            smoke1 = GameObjectVerticalPlanePrefab.transform.Find("Smoke1").gameObject;
-            smoke2 = GameObjectVerticalPlanePrefab.transform.Find("Smoke2").gameObject;
+            smoke1 = GameObject.Find("Smokes").transform.FindChild("Smoke1").gameObject;;
+            smoke2 = GameObject.Find("Smokes").transform.FindChild("Smoke2").gameObject;
             figured = false;
             gameOn = true;
+            difference = Door.transform.position - Person.transform.position;
+            
+            
             message.text = "In this scenario we will learn how to escape a room full of smoke due to Fire. The smoke is dangerous and causes more deaths than the fire itself";
         
         }
+
+
+        if(!initDone){
+            Touch touch;
+            if (Input.touchCount < 1 || (touch = Input.GetTouch(0)).phase != TouchPhase.Began)
+            {
+                return;
+            }
+
+            // Should not handle input if the player is pointing on UI.
+            if (EventSystem.current.IsPointerOverGameObject(touch.fingerId))
+            {
+                return;
+            }
+
+            // Raycast against the location the player touched to search for planes.
+            TrackableHit hit;
+            bool foundHit = false;
+            
+            TrackableHitFlags raycastFilter = TrackableHitFlags.PlaneWithinPolygon |
+                TrackableHitFlags.FeaturePointWithSurfaceNormal;
+            foundHit = Frame.Raycast(
+                touch.position.x, touch.position.y, raycastFilter, out hit);
+        
+            if (foundHit)
+            {
+                message.text = "WHY IS IT HERE";
+                // Use hit pose and camera pose to check if hittest is from the
+                // back of the plane, if it is, no need to create the anchor.
+                if ((hit.Trackable is DetectedPlane) &&
+                    Vector3.Dot(Cam.transform.position - hit.Pose.position,
+                        hit.Pose.rotation * Vector3.up) < 0)
+                {
+                    message.text = "Hit at back of the current DetectedPlane";
+                }
+                else
+                {
+                    // Choose the prefab based on the Trackable that got hit.
+                    GameObject prefab;
+                    if (hit.Trackable is DetectedPlane)
+                    {
+                        DetectedPlane detectedPlane = hit.Trackable as DetectedPlane;
+                        if (detectedPlane.PlaneType == DetectedPlaneType.Vertical)
+                        {
+                            prefab = GameObjectVerticalPlanePrefab;
+                        }
+                        else
+                        {
+                            prefab = GameObjectHorizontalPlanePrefab;
+                        }
+                        initDone = true;
+                        PlaneDiscoveryGuide.myInitDone = true;
+        
+                        figured = true;
+                        
+                    }
+                    else{
+                        prefab = GameObjectVerticalPlanePrefab;
+                        message.text = "Please tap a mesh";
+                    }
+                    
+                    // Instantiate prefab at the hit pose.
+                    if (initDone){
+                    var gameObject = Instantiate(prefab, hit.Pose.position, hit.Pose.rotation);
+
+                    // Compensate for the hitPose rotation facing away from the raycast (i.e.
+                    // camera).
+                    gameObject.transform.Rotate(0, _prefabRotation, 0, Space.Self);
+
+                    // Create an anchor to allow ARCore to track the hitpoint as understanding of
+                    // the physical world evolves.
+                    var anchor = hit.Trackable.CreateAnchor(hit.Pose);
+
+                    // Make game object a child of the anchor.
+                    gameObject.transform.parent = anchor.transform;
+                    }
+                    // Initialize Instant Placement Effect.
+                    
+                }
+            } 
+        }
+
+
+        
         
 
         
@@ -71,7 +163,10 @@ public class SmokeSceneController : MonoBehaviour
     }
     void FixedUpdate(){
         if(move){
-            Vector3 movement = new Vector3 (0.01f, 0.0f, 0.0f);
+            float x = 0.019f * difference.x/maxCrawl;
+            float z = 0.019f * difference.z/maxCrawl;
+            // Debug.Log(x.ToString() + " " + z.ToString());
+            Vector3 movement = new Vector3 (x, 0.0f, z);
             Person.GetComponent<Rigidbody>().MovePosition(Person.transform.position + movement);
 
 
